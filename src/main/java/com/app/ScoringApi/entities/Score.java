@@ -2,6 +2,8 @@ package com.app.ScoringApi.entities;
 
 import com.app.ScoringApi.enums.Subject;
 import jakarta.persistence.*;
+import jakarta.validation.constraints.Max;
+import jakarta.validation.constraints.Min;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -21,6 +23,8 @@ public class Score {
     private Subject subject;
 
     @Column(nullable = false)
+    @Min(0)
+    @Max(100)
     private Integer score; // 0-100 validated
 
     @ManyToOne(fetch = FetchType.LAZY)
