@@ -177,7 +177,7 @@ POSTGRES_DB: studentdb
 POSTGRES_USER: userManagement
 POSTGRES_PASSWORD: diogo
 ports:
-- "5431:5432"
+- "5436:5432"
 volumes:
 - pgdata:/var/lib/postgresql/data
 
@@ -232,3 +232,5 @@ service/
 src/test/java/com/app/ScoringApi/
 unit/
 integration/
+
+CREATED BY OLIVIA CHIDIOGO IKEJIUBA
