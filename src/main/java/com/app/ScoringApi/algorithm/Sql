@@ -1,0 +1,92 @@
+1)Given the following data definition, select all queries that return the second largest salary.
+ Note that some employees may have the same salary.
+ Please note that there may be more than one correct option.
+
+ the correct queries for this : If we have employees A, B, and C whose salaries are $100, $80, and $100 respectively,
+ note that the second highest salary is $80 although there are two employees with a higher salary.
+
+ ANSWER:
+   SELECT DISTINCT(salary) FROM emp ORDER BY salary DESC LIMIT 1 OFFSET 1;
+
+   SELECT MAX(salary) FROM emp WHERE salary < (SELECT MAX(salary) FROM emp);
+
+   SELECT salary FROM (SELECT DISTINCT salary FROM emp ORDER BY salary DESC LIMIT 2) AS emp ORDER BY salary LIMIT 1;
+
+
+2) SELECT g.year, c.country
+   FROM games g
+   JOIN city_country c
+       ON g.city = c.city
+   ORDER BY g.year;
+| year | country |
+| ---- | ------- |
+| 1896 | Greece  |
+| 1948 | UK      |
+| 2004 | Greece  |
+| 2008 | China   |
+| 2012 | UK      |
+
+
+3)
+a)LEFT JOIN (left table keeps all its rows)
+  Meaning:
+
+  Returns all rows from the LEFT table (games)
+
+  Returns matching rows from the RIGHT table (city_country)
+
+  If no match exists, RIGHT side columns become NULL
+
+  SQL example :SELECT g.year, g.city, c.country
+               FROM games g
+               LEFT JOIN city_country c
+                   ON g.city = c.city;
+| year | city    | country |
+| ---- | ------- | ------- |
+| 2004 | Athens  | Greece  |
+| 2008 | Beijing | China   |
+| 2012 | London  | UK      |
+| 2032 | NULL    | NULL    |
+
+ b)RIGHT JOIN (right table keeps all its rows)
+ Meaning:
+
+ Returns all rows from the RIGHT table (city_country)
+
+ Returns matching rows from the LEFT table (games)
+
+ If no match exists, LEFT side columns become NULL
+
+ SELECT g.year, g.city, c.city, c.country
+ FROM games g
+ RIGHT JOIN city_country c
+     ON g.city = c.city;
+
+| year | city (games) | city (country) | country   |
+| ---- | ------------ | -------------- | --------- |
+| 2004 | Athens       | Athens         | Greece    |
+| 2008 | Beijing      | Beijing        | China     |
+| 2012 | London       | London         | UK        |
+| NULL | NULL         | Sydney         | Australia |
+
+4) correct SQL query to return each userId whose account has more than one session,
+ along with their average session duration:
+ SELECT
+     userId,
+     AVG(duration) AS AverageDuration
+ FROM sessions
+ GROUP BY userId
+ HAVING COUNT(*) > 1;
+
+explanation
+GROUP BY
+
+Groups all rows by userId.
+
+AVG(duration)
+
+Computes the average session duration per user.
+
+HAVING COUNT(*) > 1
+
+Filters groups to only include users with more than one session.

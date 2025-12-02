@@ -4,6 +4,7 @@ import com.app.ScoringApi.enums.Subject;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.Max;
 import jakarta.validation.constraints.Min;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,6 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
+@AllArgsConstructor
 @Entity
 @Table(name = "scores", uniqueConstraints = @UniqueConstraint(columnNames = {"student_id","subject"}))
 public class Score {
@@ -30,4 +32,11 @@ public class Score {
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "student_id", nullable = false)
     private Student student;
+
+    public Score(Student student, Subject subject, Integer score) {
+        this.student = student;
+        this.subject = subject;
+        this.score = score;
+    }
+
 }

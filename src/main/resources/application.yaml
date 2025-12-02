@@ -1,3 +1,18 @@
+server:
+  port: 8080
+
+
 spring:
   application:
     name: ScoringApi
+
+
+  datasource:
+    url: jdbc:postgresql://db:5432/studentdb
+    username: postgres
+    password:  diogo
+    driver-class-name: org.postgresql.Driver
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
